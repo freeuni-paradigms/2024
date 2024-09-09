@@ -26,4 +26,4 @@ https://classroom.google.com/c/NzExNTkxOTA0NTYw?cjc=p6afufe
 https://docs.google.com/document/d/1bQOfcLp23o-F3GR5l-ccrXNwJRv7JXRLBGIMcEh0t94/edit
 
 ## ვირტუალური მანქანა
-https://github.com/freeuni-paradigms/2024-fall/tree/main/vm
+https://github.com/freeuni-paradigms/2024/tree/main/vm
