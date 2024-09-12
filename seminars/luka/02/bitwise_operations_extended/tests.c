@@ -69,6 +69,11 @@ int test_tmin(void) {
 }
 int test_fitsBits(int x, int n)
 {
+
+  if (n == 32) {
+    return 1;
+  }
+
   int TMin_n = -(1 << (n-1));
   int TMax_n = (1 << (n-1)) - 1;
   return x >= TMin_n && x <= TMax_n;
