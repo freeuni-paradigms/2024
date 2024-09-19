@@ -10,7 +10,40 @@
  * compiler. You can still use printf for debugging without including
  * <stdio.h>, although you might get a compiler warning. In general,
  * it's not good practice to ignore compiler warnings, but in this
- * case it's OK.  
+ * case it's OK. 
+
+
+
+1 = 1
+
+2 10
+3 11
+4 100
+
+32
+-1 = 1 30*0 1
+
+
+111000
+000111 
+111111
+
+1  -1 = 0
+
+
+ 0000000000001
+ 1111111111111
+ 0000000000000
+
+
+0000000000001  1
+0000000000000  0
+1111111111111 -1
+1111111111110 -2
+1111111111101 -3
+1111111111100 -4 
+1111111111011 
+
  */
 
 #if 0
@@ -19,6 +52,9 @@
  *
  * STEP 1: Read the following instructions carefully.
  */
+
+
+
 
 You will provide your solution to the Data Lab by
 editing the collection of functions in this source file.
@@ -131,6 +167,86 @@ NOTES:
 
 #endif
 
+/*
+
+! ~       & ^ | + << >>
+
+
+! not (x):
+
+!0 = 1
+!ნებისმიერი რიცხვი = 0
+
+~ bitwise not:
+
+int 4 byte = 32 bit
+
+
+00000000 00000000 00000000 00000100 = 4
+~ 00000000 00000000 00000000 00000100 = 11111111 11111111 11111111 11111011
+
+
+
+& bitwise and (x, y):
+
+x & y = 
+
+x = 00000000 00000000 00000000 00001100 = 12
+y = 00000000 00000000 00000000 00000110 = 6
+a = x & y
+a = 00000000 00000000 00000000 00000100 = 4
+
+
+^ bitwise xor (x, y):
+x = 00000000 00000000 00000000 00001100 = 12
+y = 00000000 00000000 00000000 00000110 = 6
+
+1^1 0
+1^0 1
+0^1 1
+0^0 0
+
+a = x ^ y
+
+a = 00000000 00000000 00000000 00001010
+
+| bitwise or (x, y)
+
+x = 00000000 00000000 00000000 00001100 = 12
+y = 00000000 00000000 00000000 00000110 = 6
+
+a = 00000000 00000000 00000000 00001110
+
+
+<< left shift (x, y)
+
+a = x << y;
+
+x = 00000000 00000000 00000000 00001100 = 12
+y = 2
+a = 00000000 00000000 00000000 00110000 = 48
+
+>> right shift(x, y)
+
+x = 00000000 00000000 00000000 00001100 = 12
+y = 2
+
+00000000 00000000 00000000 00000011
+00000000 00000000 00000000 00000000
+
+3 / 2 = 1 00000000 00000000 00000000 00000001
+
+1 / 2 = 0 00000000 00000000 00000000 00000000
+
+a = 00000000 00000000 00000000 00001100
+
+10000000 00000000 00000000 00001100 >> 3
+11000000 00000000 00000000 00000110
+11100000 00000000 00000000 00000011
+11110000 00000000 00000000 00000001
+
+*/
+
 /* 
  * negate - return -x 
  *   Example: negate(1) = -1.
@@ -140,7 +256,7 @@ NOTES:
  */
 int negate(int x)
 {
-  return 2;
+  return ~x + 1;
 }
 
 /* 
@@ -148,10 +264,12 @@ int negate(int x)
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 4
  *   Rating: 1
+
+    10000000 00000000 00000000 00000000
  */
 int tmin(void)
 {
-  return 2;
+  return 1 << 31;
 }
 
 /* 
@@ -163,7 +281,7 @@ int tmin(void)
  */
 int bitAnd(int x, int y)
 {
-  return 2;
+  return ~(~x | ~y);
 }
 
 
@@ -176,7 +294,12 @@ int bitAnd(int x, int y)
  */
 int isPositive(int x)
 {
-  return 2;
+  // 10000000 00000000 00000000 00000000
+  // 11111111111111111111111111111111111
+  // 0
+  // !123131 = 0
+  // !0 = 1
+  return !(x >> 31) & (!!x);
 }
 
 /* 
@@ -189,7 +312,31 @@ int isPositive(int x)
  */
 int getByte(int x, int n)
 {
-  return 2;
+  /*
+    0 0x12345678 >> 0  = 0x12345678
+    1 0x12345678 >> 8  = 0x00123456
+    2 0x12345678 >> 16 = 0x00001234 
+    3 0x12345678 >> 24 = 0x00000012
+
+    n * 8 = n * 2^3
+
+    
+
+  */
+
+  // n * 8
+  int bitsToShift = n << 3;
+  
+
+
+  int xShiftedByN = x >> bitsToShift;
+
+  // 0xFF = 0000000 0000000 0000000 11111111
+  // 0xFF = 0x000000FF 
+
+  int result = xShiftedByN & 0xFF; // 0xFF is our bitmask
+
+  return result;
 }
 
 /* 
@@ -200,10 +347,56 @@ int getByte(int x, int n)
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 15
  *   Rating: 2
+
+
+    000 = 0
+    001 = 1
+    010 = 2
+    011 = 3
+
+    111 = -1
+    110 = -2 ~-2 = 001 + 1 = 010 = 2
+    101 = -3
+    100 = -4 
+
+
+    
+    15
+
+    00000000 00000000 00000000 00000001 << 31
+
+    11111111 11111111 11111111 11111100 = -4  // 3 bits 
+    11111111 11111111 11111111 11111111
+
+
+    11111111 11111111 11111111 11111011 = -5  // 4 bits
+
+
+    -1 = ~1 + 1
+
  */
+
+#include <stdio.h>
+
+
 int fitsBits(int x, int n)
 {
-  return 2;
+  // x >> (n-1)
+  /*
+      (x >> n) << 1
+  
+  */ 
+  int nMinusOne = n + (~0); 
+
+  int xShiftedByNMinusOne = x >> nMinusOne;
+  
+  int positiveCase = !xShiftedByNMinusOne;
+
+  int negativeCase = !(~xShiftedByNMinusOne);
+
+  int isXNegative = x >> 31;
+
+  return (positiveCase & !isXNegative) | (negativeCase & isXNegative);
 }
 
 /* 
