@@ -1,33 +1,119 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+"abcdefg"
+"abcdgf"
+
+*/
+
 int strcmp(const char *s1, const char *s2)
 {
+    while (*s1 != 0 && *s2 != 0) {
+        int difference = *s1 - *s2;
+        
+        if (difference != 0) {
+            return difference;
+        }
+        
+        s1++;
+        s2++;
+    }
+
+    // if (*s1 == 0 && *s2 == 0) {
+    //     /*
+    //         s1 = "abcd"
+    //         s2 = "abcd"
+        
+    //     */
+        
+    //     return 0;
+    // } else if (*s1 == 0) {
+    //     /*
+    //         s1 = "abcd"
+    //         s2 = "abcde"
+    //     */
+
+    //     return -1;
+    // }
+
+    // /*
+    //     s1 = "abcde"
+    //     s2 = "abcd"
+    // */
+
+    // return 1;
+
+    return *s1 - *s2;
+
 }
 
 char *strcpy(char *dest, const char *src)
 {   
-    return NULL;
+    char *orig_dest = dest;
+    // for (const char *ptr = src; ptr != 0; ptr++) {
+    //     *dest = *ptr;
+    //     dest++;
+    // }
+
+    while (*src) {
+        *dest++ = *src++;
+    }
+
+    *dest = 0;
+
+    return orig_dest;
 }
 
 size_t strlen(const char *s)
 {
-    return 0; 
+    size_t size = 0;
+
+    while(*s++) {
+        size++;
+    }
+
+    return size; 
 }
+
+// dest = "abcd" \0
+// src = "efg" \0
+// dest = "abcdefg" \0
 
 char *strcat(char *dest, const char *src)
 {
-    return NULL;
+    size_t dest_len = strlen(dest);
+
+    char *target = dest + dest_len;
+    strcpy(target, src);
+
+    return dest;
 }
 
 char *strdup(const char *s)
 {
-    return NULL;
+    size_t string_len = strlen(s);
+
+    char *heap_string = malloc(string_len + 1);
+   
+    memcpy(heap_string, s, string_len + 1);
+
+    return heap_string;
 }
+
+// char arr[4];
+// memset(arr, 'f', 4);
+// {'f', 'f', 'f', 'f'}
+
 
 void *memset(void *s, int c, size_t n)
 {
-    return NULL;
+    for (int i = 0; i < n; i++) {
+        char *target = (char *) s + i;
+        *target = c;
+    }
+
+    return s;
 }
 
 int main()
@@ -51,10 +137,9 @@ int main()
     }
     printf("\n");
 
-    // tests casting to unsigned char
     printf("strcmp:\n");
-    char *s1_1 = "abcde";  // a in ASCII is 97
-    char *s2_2 = "übcde"; // ü in ASCII is 129 
+    char *s1_1 = "abcde";
+    char *s2_2 = "bcde";
     int strcmpRes_2 = strcmp(s1_1, s2_2);
     if (strcmpRes_2 > 0)
     {
