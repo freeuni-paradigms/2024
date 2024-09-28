@@ -12,7 +12,7 @@ https://classroom.google.com/c/NzExNTkxOTA0NTYw?cjc=p6afufe
 | დავალება | ქულა | მოსაწვევი | ჩაბარების თარიღი |
 |----------|------|-----------|------------------|
 | 01 - rsg | 3 | https://classroom.github.com/a/QadlrgQX | 24/09/2024 |
-| 02 - six-degrees | 7 |  |  |
+| 02 - six-degrees | 7 | https://classroom.github.com/a/-CLIKEHj | 07/10/2024 |
 | 03 - vector-hashset | 7 |  |  |
 | 04 - rss-news-search | 7 |  |  |
 | 05 - TBD | 0 | TBD |  |
