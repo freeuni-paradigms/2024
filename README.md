@@ -13,7 +13,7 @@ https://classroom.google.com/c/NzExNTkxOTA0NTYw?cjc=p6afufe
 |----------|------|-----------|------------------|
 | 01 - rsg | 3 | https://classroom.github.com/a/QadlrgQX | 24/09/2024 |
 | 02 - six-degrees | 7 | https://classroom.github.com/a/-CLIKEHj | 07/10/2024 |
-| 03 - vector-hashset | 7 |  |  |
+| 03 - vector-hashset | 7 | https://classroom.github.com/a/FTmlaPoM | 23/10/2024 |
 | 04 - rss-news-search | 7 |  |  |
 | 05 - TBD | 0 | TBD |  |
 | 06 - bankdriver | 9 |  |  |
