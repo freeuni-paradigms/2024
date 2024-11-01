@@ -4,6 +4,12 @@
 typedef void(*FreeFn)(void* ptr);
 
 typedef struct {
+    int elem_size;
+    FreeFn free_fn;
+
+    int logical_size;
+    int allocated_size;
+    void *base;
 } Vector;
 
 void VectorInit(Vector* v, int elem_size, FreeFn free_fn);
