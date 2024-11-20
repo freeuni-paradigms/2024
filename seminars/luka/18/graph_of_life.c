@@ -8,6 +8,7 @@
 struct {
   int num_total_threads;
   int threads_reached;
+  int barrier_reaches; 
   pthread_mutex_t lock;
   pthread_cond_t cond;
 } barrier;
@@ -34,9 +35,13 @@ void *Ckhovreba(void *args) {
 
     if (barrier.num_total_threads == barrier.threads_reached) {
       barrier.threads_reached = 0;
+      barrier.barrier_reaches++;
       pthread_cond_broadcast(&barrier.cond);
     } else {
-      pthread_cond_wait(&barrier.cond, &barrier.lock);
+      int old_reach = barrier.barrier_reaches;
+      while (barrier.barrier_reaches == old_reach) {
+        pthread_cond_wait(&barrier.cond, &barrier.lock);
+      }
     }
 
     pthread_mutex_unlock(&barrier.lock);
@@ -50,10 +55,14 @@ void *Ckhovreba(void *args) {
 
     if (barrier.num_total_threads == barrier.threads_reached) {
       barrier.threads_reached = 0;
+      barrier.barrier_reaches++;
       PrintAll();
       pthread_cond_broadcast(&barrier.cond);
     } else {
-      pthread_cond_wait(&barrier.cond, &barrier.lock);
+      int old_reach = barrier.barrier_reaches;
+      while (barrier.barrier_reaches == old_reach) {
+        pthread_cond_wait(&barrier.cond, &barrier.lock);
+      }
     }
 
     pthread_mutex_unlock(&barrier.lock);
@@ -69,7 +78,7 @@ void SimulateGraphOfLife(int num_nodes, int num_iterations) {
   CxovrebaArgs *args;
   args = malloc(num_nodes * sizeof(CxovrebaArgs));
 
-
+  barrier.barrier_reaches = 0;
   barrier.num_total_threads = num_nodes;
   pthread_mutex_init(&barrier.lock, 0);
   pthread_cond_init(&barrier.cond, 0);
