@@ -5,7 +5,7 @@
 
 ამოაარქივეთ გადმოწერილი ფაილები:
 ```sh
-tar -xvzf kawa-3.1.1.tar.gz
+unzip kawa-3.1.1.zip
 ```
 
 თქვენს `PATH` environment variable-ში დაამატეთ შემდეგი მისამართი.
