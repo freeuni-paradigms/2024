@@ -17,8 +17,8 @@ https://classroom.google.com/c/NzExNTkxOTA0NTYw?cjc=p6afufe
 | 04 - rss-news-search | 7 | https://classroom.github.com/a/36XIBlW7 | 05/12/2024 |
 | 05 - TBD | 0 | TBD |  |
 | 06 - bankdriver | 9 |  |  |
-| 07 - where-am-i | 4 |  |  |
-| 08 - align | 3 |  |  |
+| 07 - where-am-i | 4 | https://classroom.github.com/a/yI-wVLBh |  |
+| 08 - align | 3 | https://classroom.github.com/a/EAd3mNyL |  |
 | bonus | 10 | https://classroom.github.com/a/1q0OWrMj |  |
 
 ## Git basics
